@@ -31,12 +31,16 @@ public:
     }
 
     void save() const {
+        cv::cvtColor(imgMat, imgMat, CV_BGR2RGB);
         cv::imwrite(path, imgMat);
+        cv::cvtColor(imgMat, imgMat, CV_BGR2RGB);
     }
 
     void save(const std::string& location) {
         path = location;
+        cv::cvtColor(imgMat, imgMat, CV_BGR2RGB);
         cv::imwrite(location, imgMat);
+        cv::cvtColor(imgMat, imgMat, CV_BGR2RGB);
     }
 
     void apply2DFilter(const cv::Mat kernel, int ddepth, int delta) {
