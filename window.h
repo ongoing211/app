@@ -38,5 +38,6 @@ private slots:
     void on_action_img_std_blur_medianBlur_triggered();
     void on_action_img_std_sharp_sharp_triggered();
     void on_action_img_changeSize_triggered();
+    void on_action_triggered();
 };
 #endif // WINDOW_H

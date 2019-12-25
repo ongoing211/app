@@ -3,6 +3,7 @@
 
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/opencv.hpp>
 
 #include <QPixmap>
 
@@ -14,6 +15,9 @@ class Image {
     int w;
 
     std::string path {"undef"};
+
+private:
+
 
 public:
     Image() = default;
@@ -60,6 +64,11 @@ public:
         cv::Mat kernel(3,3,CV_64F, m);
         cv::filter2D(imgMat, imgMat, 0, kernel);
     }
+
+    void applyDenoise() {
+        cv::fastNlMeansDenoisingColored(imgMat, imgMat, 100, 100);
+    }
+
     void changeSize(double coef) {
         w = static_cast<int>(static_cast<double>(w) * coef);
         h = static_cast<int>(static_cast<double>(h) * coef);
@@ -90,8 +99,8 @@ public:
         return result;
     }
 
-    QPixmap toQPixmap() const{
-        QImage rawImg(imgMat.data, w, h, QImage::Format_RGB888);
+    QPixmap toQPixmap() const {
+        QImage rawImg(imgMat.data, w, h, imgMat.step, QImage::Format_RGB888);
         return QPixmap::fromImage(rawImg);
     }
 };

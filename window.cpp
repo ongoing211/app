@@ -26,21 +26,23 @@ Window::~Window()
 // Loading an image
 void Window::on_action_file_open_triggered()
 {
-    isAnyfileLoaded = true;
+
     const std::string path = QFileDialog::getOpenFileName(this,                        // Parent window
                                                           tr("Открыть изображение"),   // Windows title
                                                           tr(""),                      // Default path
                                                           tr("Images (*.jpeg *.jpg)")) // Saving path
             .toStdString();
 
-    img.load(path);
-    display();
+    if (path != "") {
+        isAnyfileLoaded = true;
+        img.load(path);
+        display();
+    }
 }
 
 // Display it on scene
 void Window::display()
 {
-
     setFixedSize(img.getW(), img.getH());
     ui->graphicsView->resize(img.getW(), img.getH());
 
@@ -87,6 +89,7 @@ void Window::on_action_props_props_triggered()
     std::string props = img.getProps();
 
     QMessageBox msg(this);
+    msg.setWindowTitle("Свойства");
     msg.setText(tr("Свойства изображения"));
     msg.setDetailedText(QString::fromStdString(props));
     msg.exec();
@@ -128,5 +131,12 @@ void Window::on_action_img_changeSize_triggered()
     if (not isImageReady()) return;
     double coef = QInputDialog::getDouble(this, "Изменить размер", "Коэфицент изменения", 1, 0, 50, 5);
     img.changeSize(coef);
+    display();
+}
+
+void Window::on_action_triggered()
+{
+    if (not isImageReady()) return;
+    img.applyDenoise();
     display();
 }

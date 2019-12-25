@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Window</string>
+   <string>ABDraw</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGraphicsView" name="graphicsView">
@@ -76,6 +76,7 @@
      </widget>
      <addaction name="menu_6"/>
      <addaction name="menu_7"/>
+     <addaction name="action"/>
     </widget>
     <addaction name="separator"/>
     <addaction name="separator"/>
@@ -147,6 +148,11 @@
   <action name="action_img_changeSize">
    <property name="text">
     <string>Изменить размер</string>
+   </property>
+  </action>
+  <action name="action">
+   <property name="text">
+    <string>Устранение шумов</string>
    </property>
   </action>
  </widget>
